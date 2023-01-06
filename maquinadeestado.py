@@ -1,3 +1,4 @@
+import signal
 import time
 
 # Definir las cantidades de tiempo en segundos para los estados 2 y 4
@@ -10,16 +11,23 @@ last_input = None
 # Iniciar el estado en 1
 state = 0
 
-start_time=time.time() #tiempo actual
-
+start_time=time.time()
+def input_with_timeout(prompt, timeout):
+    try:
+        return input(prompt)
+    except timeout > time2:
+        return ""
 
 # Bucle infinito
 while True:
-
+     #tiempo actual
+    tiempor_corriendo= time.time() - start_time
+    tiempo0=tiempor_corriendo
     if state == 0:
         print("Entering state 0")
         # Leer una entrada del usuario
         user_input = input()
+        print (tiempor_corriendo)
 
         # Si el usuario escribe "R", cambiar al estado 1 si no, cambia al 3
         if user_input == "R":
@@ -30,6 +38,7 @@ while True:
     # Si el estado es 1
     elif state == 1:
         print("Entering state 1")
+        print (tiempor_corriendo)
         # Leer una entrada del usuario
         time.sleep(time1)
 
@@ -37,24 +46,25 @@ while True:
 
     # Si el estado es 2
     elif state == 2:
-        if last_input or time.time() - start_time > time2:
-        # Mostrar el estado 2
+        while True:
+            timestate2= time.time() - tiempor_corriendo - start_time
             print("Entering state 2")
-            user_input = input()
-            time.sleep(time2)
-            last_input = user_input
+            print (timestate2)
+            user_input = input_with_timeout('Ingresa un dato: ', timestate2)
             print("ingreso por fin")
             if user_input == "R" :
                 state = 1
-
-            elif user_input == "":
+                break
+            elif timestate2 > time2 or user_input == "":
+                
                 state= 0
+                break
 
     # Si el estado es 3
     elif state == 3:
         # Mostrar el estado 3
         print("Entering state 3")
-
+        print (start_time)
         # Esperar la cantidad de tiempo 
         time.sleep(time3)
 
@@ -63,15 +73,16 @@ while True:
 
     elif state == 4:
         # Mostrar el estado 4
-        if last_input or time.time() - start_time > time4:
+        while True:
+            timestate2= time.time() - tiempor_corriendo - start_time
             print("Entering state 4")
-            user_input = input()
-            
-            last_input = user_input
+            print (timestate2)
+            user_input = input_with_timeout('Ingresa un dato: ', timestate2)
             print("ingreso por fin")
-            if user_input == "R":
+            if user_input == "R" :
                 state = 3
-
-            elif user_input == "":
-                time.sleep(time4)
+                break
+            elif timestate2 > time4 or user_input == "":
+                
                 state= 0
+                break
