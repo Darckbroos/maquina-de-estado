@@ -63,11 +63,14 @@ while True:
 
     elif state == 4:
         # Mostrar el estado 3
-        print("Entering state 4")
-        user_input = input()
+        if last_input or time.time() - start_time > time2:
+            print("Entering state 4")
+            user_input = input()
+            time.sleep(8)
+            last_input = user_input
+            print("ingreso por fin")
+            if user_input == "R":
+                state = 3
 
-        if user_input == "R":
-            state = 3
-
-        elif time4 <= 10:
-            state= 0
+            elif user_input == "":
+                state= 0
