@@ -1,4 +1,3 @@
-import signal
 import time
 
 # Definir las cantidades de tiempo en segundos para los estados 2 y 4
@@ -22,7 +21,6 @@ def input_with_timeout(prompt, timeout):
 while True:
      #tiempo actual
     tiempor_corriendo= time.time() - start_time
-    tiempo0=tiempor_corriendo
     if state == 0:
         print("Entering state 0")
         # Leer una entrada del usuario
@@ -51,11 +49,10 @@ while True:
             print("Entering state 2")
             print (timestate2)
             user_input = input_with_timeout('Ingresa un dato: ', timestate2)
-            print("ingreso por fin")
             if user_input == "R" :
                 state = 1
                 break
-            elif timestate2 > time2 or user_input == "":
+            elif timestate2 >=time2 or user_input == "":
                 
                 state= 0
                 break
@@ -78,7 +75,6 @@ while True:
             print("Entering state 4")
             print (timestate2)
             user_input = input_with_timeout('Ingresa un dato: ', timestate2)
-            print("ingreso por fin")
             if user_input == "R" :
                 state = 3
                 break
