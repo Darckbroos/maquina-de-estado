@@ -1,6 +1,8 @@
+import select
+import sys
 import time
 
-# Definir las cantidades de tiempo en segundos para los estados 2 y 4
+# Definir las cantidades de tiempo en segundos para los estados 2 y 3
 time1 = 1
 time2 = 8 
 time3 = 5
@@ -11,6 +13,13 @@ last_input = None
 state = 0
 
 start_time=time.time() #tiempo actual
+
+def input_with_timeout(prompt, timeout):
+  print(prompt, end="")
+  rlist, _, _ = select.select([sys.stdin], [], [], timeout)
+  if rlist:
+    return sys.stdin.readline().strip()
+  return ""
 
 
 # Bucle infinito
@@ -40,14 +49,14 @@ while True:
         if last_input or time.time() - start_time > time2:
         # Mostrar el estado 2
             print("Entering state 2")
-            user_input = input()
+            response = input_with_timeout("Ingresa un valor: ", time2)
             time.sleep(time2)
-            last_input = user_input
+            last_input = response
             print("ingreso por fin")
-            if user_input == "R" :
+            if response == "R" :
                 state = 1
 
-            elif user_input == "":
+            elif response == "":
                 state= 0
 
     # Si el estado es 3
@@ -55,14 +64,14 @@ while True:
         # Mostrar el estado 3
         print("Entering state 3")
 
-        # Esperar la cantidad de tiempo 
+        # Esperar la cantidad de tiempo 2
         time.sleep(time3)
 
         # Cambiar al estado 4
         state = 4
 
     elif state == 4:
-        # Mostrar el estado 4
+        # Mostrar el estado 3
         if last_input or time.time() - start_time > time4:
             print("Entering state 4")
             user_input = input()
