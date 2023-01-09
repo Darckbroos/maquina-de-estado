@@ -7,7 +7,7 @@ def limit_input(prompt, timeout):
   try:
     return input(prompt)
   except:
-    return print("\n")
+    return None
   finally:
     timer.cancel()
 
@@ -55,10 +55,10 @@ while True:
             print("Entering state 2")
             print (timestate2)
             user_input = limit_input("Ingresa una respuesta: ", time2)
-            if user_input == "R" and timestate2 >= time2:
+            if user_input == "R" or user_input == "r"  :
                 state = 1
                 break
-            else :
+            else:
                 
                 state= 0
                 break
@@ -80,8 +80,8 @@ while True:
             timestate2= time.time() - tiempor_corriendo - start_time
             print("Entering state 4")
             print (timestate2)
-            user_input = limit_input("Ingresa una respuesta: ", time4)
-            if user_input == "R" and  timestate2 >= time4 :
+            user_input = input()
+            if user_input == "R" or user_input == "r"  :
                 state = 3
                 break
             else:
