@@ -1,4 +1,15 @@
 import time
+import threading
+
+def limit_input(prompt, timeout):
+  timer = threading.Timer(timeout, lambda: print("\n"))
+  timer.start()
+  try:
+    return input(prompt)
+  except:
+    return print("\n")
+  finally:
+    timer.cancel()
 
 # Definir las cantidades de tiempo en segundos para los estados 2 y 4
 time1 = 1
@@ -11,11 +22,6 @@ last_input = None
 state = 0
 
 start_time=time.time()
-def input_with_timeout(prompt, timeout):
-    try:
-        return input(prompt)
-    except timeout > time2:
-        return ""
 
 # Bucle infinito
 while True:
@@ -48,11 +54,11 @@ while True:
             timestate2= time.time() - tiempor_corriendo - start_time
             print("Entering state 2")
             print (timestate2)
-            user_input = input_with_timeout('Ingresa un dato: ', timestate2)
-            if user_input == "R" :
+            user_input = limit_input("Ingresa una respuesta: ", time2)
+            if user_input == "R" and timestate2 >= time2:
                 state = 1
                 break
-            elif timestate2 >=time2 or user_input == "":
+            else :
                 
                 state= 0
                 break
@@ -74,11 +80,11 @@ while True:
             timestate2= time.time() - tiempor_corriendo - start_time
             print("Entering state 4")
             print (timestate2)
-            user_input = input_with_timeout('Ingresa un dato: ', timestate2)
-            if user_input == "R" :
+            user_input = limit_input("Ingresa una respuesta: ", time4)
+            if user_input == "R" and  timestate2 >= time4 :
                 state = 3
                 break
-            elif timestate2 > time4 or user_input == "":
+            else:
                 
                 state= 0
                 break
