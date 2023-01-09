@@ -34,10 +34,10 @@ while True:
         print (tiempor_corriendo)
 
         # Si el usuario escribe "R", cambiar al estado 1 si no, cambia al 3
-        if user_input == "R":
+        if user_input == "R" or user_input == "r" :
             state = 1
 
-        elif user_input == "M":
+        elif user_input == "M" or user_input == "m":
             state= 3
     # Si el estado es 1
     elif state == 1:
