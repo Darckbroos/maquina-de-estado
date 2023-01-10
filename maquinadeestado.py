@@ -2,7 +2,7 @@ import time
 import threading
 
 def limit_input(prompt, timeout):
-  timer = threading.Timer(timeout, lambda: print("\n"))
+  timer = threading.Timer(timeout, lambda: print("x\n"))
   timer.start()
   try:
     return input(prompt)
@@ -55,7 +55,7 @@ while True:
             print("Entering state 2")
             print (timestate2)
             user_input = limit_input("Ingresa una respuesta: ", time2)
-            if user_input == "R" or user_input == "r"  :
+            if user_input == "R" or user_input == "r"  and not user_input=="x":
                 state = 1
                 break
             else:
@@ -80,8 +80,8 @@ while True:
             timestate2= time.time() - tiempor_corriendo - start_time
             print("Entering state 4")
             print (timestate2)
-            user_input = input()
-            if user_input == "R" or user_input == "r"  :
+            user_input = limit_input("Ingresa una respuesta: ", time2)
+            if user_input == "R" or user_input == "r"  and not user_input=="x":
                 state = 3
                 break
             else:
